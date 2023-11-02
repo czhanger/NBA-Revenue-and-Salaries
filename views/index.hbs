@@ -1,0 +1,55 @@
+<h1>NBA Team Revenues and Salaries</h1>
+<nav>[ <a href="/"> Home </a> | <a href="/teams"> Teams </a> | <a href="/players"> Players </a> | <a href="/sponsors"> Sponsors </a>
+ | <a href="/team_sponsors"> Team Sponsors </a> | <a href="/sponsor_types"> Sponsor Types </a>  ]
+    </nav>
+
+<body>
+   <table id="home-table">
+      <thead>
+         <tr>
+            <th>Tables</th>
+            <th>Descriptions</th>
+         </tr>
+      </thead>
+      <tbody> 
+         <tr>
+            <td><a href="/teams"> Teams </a></td>
+            <td>
+               Table of NBA Teams in the database. <br>
+               Table shows Team Name and Gate Reciepts (Sum of money taken for ticket sales)
+            </td>
+         </tr>
+         <tr>
+            <td><a href="/players"> Players </a></td>
+            <td>
+               Table of Players in the database. <br>
+               Table shows Player's Team, Player Name, Age, Contract Length, Annual Salary, and Total Salary. <br>
+               To account for free agents, Team Name, Contract Length, Annual Salary, and Total Salary are <strong>NOT</strong> required.
+            </td>
+         </tr>
+         <tr>
+            <td><a href="/sponsors"> Sponsors </a></td>
+            <td>
+               Table of Sponsors in the database. <br>
+               Table shows Sponsor Name, Sponsor Revenue, and Sponsor Type (FK). <br>
+            </td>
+         </tr>
+         <tr>
+            <td><a href="/team_sponsors"> Team Sponsors </a></td>
+            <td>
+               Intersection Table of Team Sponsors in the database. <br>
+               The table is used to show which teams are contracted with which sponsors. <br>
+               Table shows Team Name (FK) and Sponsor Name (FK)
+            </td>
+         </tr>
+         <tr>
+            <td><a href="/sponsor_types"> Sponsor Types </a></td>
+            <td>
+               Table of Sponsor Types in the database. <br>
+               The table is used to categorize the types of Sponsors present in the database.
+               Table shows Sponsor Type.
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</body>

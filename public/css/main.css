@@ -1,0 +1,61 @@
+
+table {
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+
+body{
+    margin: 2%;
+}
+
+thead {
+    border-bottom: solid 2px black;
+}
+
+tr th {
+  background-color: rgba(198, 196, 196, 0.349);
+}
+
+tr:nth-child(even) {
+  background-color: rgba(198, 196, 196, 0.349);
+}
+
+/* 
+Reference: https://www.w3schools.com/css/css_form.asp
+Date: 6/11/2023
+Originality: Adapted
+Used example form styling to stylize forms in our website
+ */
+
+input, select{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    background-color: white;
+}
+input[type=submit]:hover {
+    background-color: #f29824;
+  }
+  
+form{
+    width: 50%;
+}
+
+fieldset{
+    margin-top: 2%;
+}
+
+legend{
+    margin-bottom: 2%;
+}
+
+.update-field{
+    background-color:#f2f2f2;
+}

@@ -1,0 +1,63 @@
+<body>
+    <h2>Teams</h2>
+    <nav>[ <a href="/"> Home </a> | <a href="/teams"> Teams </a> | <a href="/players"> Players </a> | <a href="/sponsors"> Sponsors </a>
+ | <a href="/team_sponsors"> Team Sponsors </a> | <a href="/sponsor_types"> Sponsor Types </a>  ]
+    </nav>
+
+    {{!-- Reference: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%204%20-%20Dynamically%20Displaying%20Data --}}
+    {{!-- Date: 06/10/2023 --}}
+    {{!-- Scope: Line --}}
+    {{!-- Originality: Adapted --}}
+    {{!-- Used the example to build table around the entity: Teams, with subsequent attributes with the option of deletion --}}
+
+    <div id="browse">
+        {{!-- Create a table --}}
+        <table id="team-table">
+            {{!-- Header section --}}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Team Name</th>
+                    <th>Gate Receipts</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{!-- For each row, print the team id, team name, and gate receipts in order --}}
+                {{#each data}}
+                <tr data-value={{this.team_id}}>
+                    <td>{{this.team_id}}</td>
+                    <td>{{this.team_name}}</td>
+                    <td>{{this.gate_receipts}}</td>
+                    <td>
+                        {{!-- Deletion button that deletes a Team --}}
+                        <button onclick="deleteTeam({{this.team_id}})">Delete</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <script src="./js/delete_teams.js"></script>
+    </div>
+
+    {{!-- Reference: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data --}}
+    {{!-- Date: 06/10/2023 --}}
+    {{!-- Scope: Line --}}
+    {{!-- Originality: Adapted --}}
+    {{!-- Used the example to create a new Team and add it to the table with subsequent attributes --}}
+
+    {{!-- Form to add a Team to the table  --}}
+    <div id="insert">
+        <form method="POST" id="addTeam" action="/add-team-form">
+            <legend><strong>Add Team</strong></legend>
+            <fieldset class="fields">
+                <label>Team Name: </label>
+                {{!-- Adding team Name --}}
+                <input type="text" name="input-tname" id="insert-input-tname" required/>
+                {{!-- Adding gate receipts --}}
+                <label>Gate Receipts: </label>
+                <input type="text" name="input-greceipts" id="insert-greceipts" required/>
+                <input type="submit">
+            </fieldset>
+        </form>
+    </div>
+</body>

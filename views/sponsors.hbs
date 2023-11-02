@@ -1,0 +1,73 @@
+<body>
+    <h2>Sponsors</h2>
+    <nav>[ <a href="/"> Home </a> | <a href="/teams"> Teams </a> | <a href="/players"> Players </a> | <a href="/sponsors"> Sponsors </a>
+ | <a href="/team_sponsors"> Team Sponsors </a> | <a href="/sponsor_types"> Sponsor Types </a>  ]
+    </nav>
+
+    {{!-- Reference: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%204%20-%20Dynamically%20Displaying%20Data --}}
+    {{!-- Date: 06/10/2023 --}}
+    {{!-- Scope: Line --}}
+    {{!-- Originality: Adapted --}}
+    {{!-- Used the example to build table around the entity: Sponsors, with subsequent attributes with the option of deletion --}}
+
+    <div id="browse">
+        {{!-- Create a table --}}
+        <table id="sponsor-table">
+            {{!-- Header section --}}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Sponsor Name</th>
+                    <th>Sponsor Type</th>
+                    <th>Sponsor Revenue</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{!-- For each row, print the sponsor id, sponsor name, sponsor type id, and sponsor revenue in order --}}
+                {{#each data}}
+                <tr data-value={{this.sponsor_id}}>
+                    <td>{{this.sponsor_id}}</td>
+                    <td>{{this.sponsor_name}}</td>
+                    <td>{{this.sponsor_type_id}}</td>
+                    <td>{{this.sponsor_revenue}}</td>
+                <td>
+                    {{!-- Deletion button that deletes a Sponsor --}}
+                    <button onclick="deleteSponsor({{this.sponsor_id}})">Delete</button>
+                </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <script src="./js/delete_sponsors.js"></script>
+    </div>
+
+    {{!-- Reference: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data --}}
+    {{!-- Date: 06/10/2023 --}}
+    {{!-- Scope: Line --}}
+    {{!-- Originality: Adapted --}}
+    {{!-- Used the example to create a new Sponsor and add it to the table with subsequent attributes --}}
+
+    {{!-- Form to add a sponsor to the table  --}}
+    <div id="insert">
+        <form method="POST" id="addSponsor" action="/add-sponsor-form">
+            <legend><strong>Add Sponsor</strong></legend>
+            <fieldset class="fields">
+                <label>Sponsor Name: </label>
+                {{!-- Adding Sponsor name --}}
+                <input type="text" name="input-sponsor-name" id="insert-input-sponsor-name" required/>
+                <label>Sponsor Revenue: </label>
+                {{!-- Adding Sponsor Revenue --}}
+                <input type="text" name="input-sponsor-revenue" id="insert-input-sponsor-revenue" required/>
+                <label>Sponsor Type: </label>
+                {{!-- Adding Sponsor Type from a specific dropdown --}}
+                <select name="input-sponsor-type-id" id="insert-input-sponsor-type-id" required/>
+                    <option value="">Select a Sponsor Type</option>
+                    {{#each sponsor_types}}
+                    <option value="{{this.sponsor_type_id}}">{{this.sponsor_type}}</option>
+                    {{/each}}
+                </select>
+                <input type="submit">
+            </fieldset>
+        </form>
+    </div>
+</body>

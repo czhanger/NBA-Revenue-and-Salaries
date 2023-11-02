@@ -1,0 +1,58 @@
+<body>
+    <h2>Sponsor Types</h2>
+    <nav>[ <a href="/"> Home </a> | <a href="/teams"> Teams </a> | <a href="/players"> Players </a> | <a href="/sponsors"> Sponsors </a>
+ | <a href="/team_sponsors"> Team Sponsors </a> | <a href="/sponsor_types"> Sponsor Types </a>  ]
+    </nav>
+
+    {{!-- Reference: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%204%20-%20Dynamically%20Displaying%20Data --}}
+    {{!-- Date: 06/10/2023 --}}
+    {{!-- Scope: Line --}}
+    {{!-- Originality: Adapted --}}
+    {{!-- Used the example to build table around the entity: Sponsor Types, with subsequent attributes with the option of deletion --}}
+
+    <div id="browse">
+        {{!-- Create a table --}}
+        <table id="sponsor-types-table">
+            {{!-- Header section --}}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Sponsor Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{!-- For each row, print the Sponsor Type Id, and Sponsor Type in order --}}
+                {{#each data}}
+                <tr data-value={{this.sponsor_type_id}}>
+                    <td>{{this.sponsor_type_id}}</td>
+                    <td>{{this.sponsor_type}}</td>
+                    <td>
+                        {{!-- Deletion button that deletes Sponsor Type --}}
+                        <button onclick="deleteSponsorType({{this.sponsor_type_id}})">Delete</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <script src="./js/delete_sponsor_type.js"></script>
+    </div>
+
+    {{!-- Reference: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data --}}
+    {{!-- Date: 06/10/2023 --}}
+    {{!-- Scope: Line --}}
+    {{!-- Originality: Adapted --}}
+    {{!-- Used the example to create a new Sponsor Type and add it to the table with subsequent attributes --}}
+
+    {{!-- Form to add a sponsor type to the table  --}}
+    <div id="insert">
+        <form method="POST" id="addSponsorType" action="/add-sponsor-type-form">
+            <legend><strong>Add Sponsor Type</strong></legend>
+            <fieldset class="fields">
+                <label>Sponsor Type Name: </label>
+                {{!-- Adding sponsor type name --}}
+                <input type="text" name="input-stname" id="insert-input-stname" required/>
+                <input type="submit">
+            </fieldset>
+        </form>
+    </div>
+</body>

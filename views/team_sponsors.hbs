@@ -1,0 +1,127 @@
+<body onload="hideUpdateForm()">
+    <h2>Team Sponsors</h2>
+    <nav>[ <a href="/"> Home </a> | <a href="/teams"> Teams </a> | <a href="/players"> Players </a> | <a href="/sponsors"> Sponsors </a>
+ | <a href="/team_sponsors"> Team Sponsors </a> | <a href="/sponsor_types"> Sponsor Types </a>  ]
+    </nav>
+
+    {{!-- Reference: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%204%20-%20Dynamically%20Displaying%20Data --}}
+    {{!-- Date: 06/10/2023 --}}
+    {{!-- Scope: Line --}}
+    {{!-- Originality: Adapted --}}
+    {{!-- Used the example to build table around the entity: Team Sponsors, with subsequent attributes with the option of deletion or updation --}}
+
+    <div id="browse">
+        {{!-- Create a table --}}
+        <table id="team-sponsors-table">
+            {{!-- Header section --}}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Sponsor Name</th>
+                    <th>Team Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{!-- For each row, print the team sponsor id, sponsor id, and team id in order --}}
+                {{#each data}}
+                <tr data-value={{this.team_sponsor_id}}>
+                    <td>{{this.team_sponsor_id}}</td>
+                    <td>{{this.sponsor_id}}</td>
+                    <td>{{this.team_id}}</td>
+                    <td>
+                        {{!-- Deletion button that deletes a Team Sponsor --}}
+                        <button onclick="deleteTeamSponsor({{this.team_sponsor_id}})">Delete</button>
+                        {{!-- Updation button that updates a Team Sponsor --}}
+                        <button onclick="showUpdateForm({{this.team_sponsor_id}})">Update</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <script src="./js/delete_team_sponsor.js"></script>
+    </div>
+
+    {{!-- Reference: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data --}}
+    {{!-- Date: 06/10/2023 --}}
+    {{!-- Scope: Line --}}
+    {{!-- Originality: Adapted --}}
+    {{!-- Used the example to create a new Team Sponsor and add it to the table with subsequent attributes --}}
+
+    {{!-- Form to add a team sponsor to the table  --}}
+    <div id="insert">
+        <form method="POST" id="addTeamSponsor" action="/add-teamsponsor-form">
+            <legend><strong>Add Team Sponsor</strong></legend>
+            <fieldset class="fields">
+                <label>Team: </label>
+                {{!-- Adding Team from a specific dropdown --}}
+                <select name="input-teamid" id="insert-input-teamid" required>
+                    <option value="">Select a Team</option>
+                    {{#each teams}}
+                    <option value="{{this.team_id}}">{{this.team_name}}</option>
+                    {{/each}}
+                </select>
+                {{!-- Adding Sponsor from a specific dropdown --}}
+                <label>Sponsor: </label>
+                <select name="input-sponsorid" id="insert-input-sponsorid" required>
+                    <option value="">Select a Sponsor</option>
+                    {{#each sponsors}}
+                    <option value="{{this.sponsor_id}}">{{this.sponsor_name}}</option>
+                    {{/each}}
+                </select>
+                <input type="submit">
+            </fieldset>
+        </form>
+    </div>
+
+    {{!-- Reference: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data --}}
+    {{!-- Date: 06/10/2023 --}}
+    {{!-- Scope: Line --}}
+    {{!-- Originality: Adapted --}}
+    {{!-- Used the example to update an existing Team Sponsor and save it to the table with optionally modified attributes --}}    
+
+    {{!-- Form to update a team sponsor to the table  --}}
+    <div id="update">
+        <form method="POST" id="updateTeamSponsor" action="/update-team-sponsor-form">
+            <legend><strong>Update Team Sponsor</strong></legend>
+            <fieldset class="update-field">
+                <input type="hidden" name="team_sponsor_id" id="update-team-sponsor-id" required>
+            {{!-- Updating Team Id from a specific dropdown --}}
+            <label for="update-input-teamid">Select a Team</label>
+            <select name="input-teamid" id="insert-input-teamid">
+                <option value="">Select a Team</option>
+                {{#each teams}}
+                <option value="{{this.team_id}}">{{this.team_name}}</option>
+                {{/each}}
+            </select>
+            {{!-- Updating Sponsor Id from a specific dropdown --}}
+            <label for="update-input-sponsorid">Select a Sponsor</label>
+            <select name="input-sponsorid" id="insert-input-sponsorid" required>
+                <option value="">Select a Sponsor</option>
+                {{#each sponsors}}
+                <option value="{{this.sponsor_id}}">{{this.sponsor_name}}</option>
+                {{/each}}
+            </select>
+            <input type="submit" value="Update">
+            </fieldset>
+        </form>
+    </div>
+
+    <script>
+        function newTeamSponsor() {
+            document.getElementById('insert').style.display = 'block';
+            hideUpdateForm();
+        }
+
+        function showUpdateForm(team_sponsor_id) {
+            document.getElementById('update-team-sponsor-id').value = team_sponsor_id;
+            document.getElementById('update').style.display = 'block';
+            document.getElementById('insert').style.display = 'none';
+        }
+
+        function hideUpdateForm() {
+            document.getElementById('update').style.display = 'none';
+        }
+    </script>
+
+
+</body>

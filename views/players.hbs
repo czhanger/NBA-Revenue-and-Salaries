@@ -1,0 +1,170 @@
+<body onload="hideUpdateForm()">
+    <h2>Players</h2>
+    
+    <nav>[ <a href="/"> Home </a> | <a href="/teams"> Teams </a> | <a href="/players"> Players </a> | <a href="/sponsors"> Sponsors </a>
+ | <a href="/team_sponsors"> Team Sponsors </a> | <a href="/sponsor_types"> Sponsor Types </a>  ]
+    </nav>
+    {{!-- Reference: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%204%20-%20Dynamically%20Displaying%20Data --}}
+    {{!-- Date: 06/10/2023 --}}
+    {{!-- Scope: Line --}}
+    {{!-- Originality: Adapted --}}
+    {{!-- Used the example to build table around the entity: Players, with subsequent attributes to be used for either deletion or updation --}}
+    <div id="browse">
+        {{!-- Create a table --}}
+        <table id="player-table">
+            {{!-- Header section --}}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Team Name</th>
+                    <th>First Name</th>
+                    <th>Lage Name</th>
+                    <th>Age</th>
+                    <th>Contract Length</th>
+                    <th>Annual Salary</th>
+                    <th>Total Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{!-- For each row, print the Player Id, Team Id, first name, last name, age, contract length, annual salary, and total salary in order --}}
+                {{#each data}}
+                <tr data-value={{this.player_id}}>
+                    <td>{{this.player_id}}</td>
+                    <td>{{this.team_id}}</td>
+                    <td>{{this.first_name}}</td>
+                    <td>{{this.last_name}}</td>
+                    <td>{{this.age}}</td>
+                    <td>{{this.contract_length}}</td>
+                    <td>{{this.annual_salary}}</td>
+                    <td>{{this.total_salary}}</td>
+                    <td>
+                        {{!-- Deletion button that deletes a Player --}}
+                        <button onclick="deletePlayer({{this.player_id}})">Delete</button>
+                        {{!-- Updation button that updates a Player --}}
+                        <button onclick="showUpdateForm({{this.player_id}})">Update</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <script src="./js/delete_player.js"></script>
+    </div>
+
+    {{!-- Reference: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data --}}
+    {{!-- Date: 06/10/2023 --}}
+    {{!-- Scope: Line --}}
+    {{!-- Originality: Adapted --}}
+    {{!-- Used the example to create a new Player and add it to the table with subsequent attributes --}}
+
+    {{!-- Form to add a Player to the table  --}}
+    <div id="insert">
+        <form method="POST" id="addPlayer" action="/add-player-form">
+            <legend><strong>Add Player</strong></legend>
+            <fieldset class="fields">
+                {{!-- Adding first name for Player --}}
+                <label> First Name: </label>
+                <input type="text" name="input-fname" id="insert-input-fname" required/>
+                {{!-- Adding last name for Player --}}
+                <label> Last Name: </label>
+                <input type="text" name="input-lname" id="insert-input-lname" required/>
+                {{!-- Adding age for Player --}}
+                <label> Age: </label>
+                <input type="number" name="input-age" id="insert-input-age" min="0" step="1" required/>
+                {{!-- Adding Team for Player from a specific dropdown --}}
+                <label> Team: </label>
+                <select name="input-teamid" id="insert-input-teamid">
+                    <option value="">Select a Team</option>
+                    {{#each teams}}
+                    <option value="{{this.team_id}}">{{this.team_name}}</option>
+                    {{/each}}
+                </select>
+                {{!-- Adding contract for Player --}}
+                <label> Contract Length: </label>
+                <input type="number" name="input-clength" id="insert-input-clength" min="0" step="1" />
+                {{!-- Adding annual salary for Player --}}
+                <label> Annual Salary: </label>
+                <input type="number" name="input-asalary" id="insert-input-asalary" min="0" />
+                {{!-- Adding total salary for Player --}}
+                <label> Total Salary: </label>
+                <input type="number" name="input-tsalary" id="insert-input-tsalary" min="0" />
+                <input type="submit">
+            </fieldset>
+        </form>
+    </div>
+
+    {{!-- Reference: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data --}}
+    {{!-- Date: 06/10/2023 --}}
+    {{!-- Scope: Line --}}
+    {{!-- Originality: Adapted --}}
+    {{!-- Used the example to update an existing Player and save it to the table with optionally modified attributes --}}    
+
+    {{!-- Form to update a Player statistics to the table  --}}
+    <div id="update">
+        <form method="POST" id="updatePlayer" action="/update-player-form">
+            <legend><strong>Update Player</strong></legend>
+            <fieldset class="update-field">
+                <input type="hidden" name="player_id" id="update-player-id" required>
+            {{!-- Updating first name for Player --}}
+            <label for="update-input-fname">First Name:</label>
+            <input type="text" name="input-fname" id="update-input-fname" required>
+            {{!-- Updating last name for Player --}}
+            <label for="update-input-lname">Last Name:</label>
+            <input type="text" name="input-lname" id="update-input-lname" required>
+            {{!-- Updating age for Player --}}
+            <label for="update-input-age">Age:</label>
+            <input type="number" name="input-age" id="update-input-age" min="0" step="1" required>
+            {{!-- Updating team for Player from a specific drop down --}}
+            <label for="update-input-teamid">Team ID:</label>
+            {{!-- Select from the drop-down --}}
+            <select name="input-teamid" id="update-input-teamid">
+                <option value="">Select a Team</option>
+                {{#each teams}}
+                <option value="{{this.team_id}}">{{this.team_name}}</option>
+                {{/each}}
+            </select>
+            {{!-- Updating contract for Player --}}
+            <label for="update-input-clength">Contract Length:</label>
+            <input type="number" name="input-clength" id="update-input-clength" min="0" step="1">
+            {{!-- Updating salary for Player --}}
+            <label for="update-input-asalary">Annual Salary:</label>
+            <input type="number" name="input-asalary" id="update-input-asalary" min="0" >
+            {{!-- Updating total salary for Player --}}
+            <label for="update-input-tsalary">Total Salary:</label>
+            <input type="number" name="input-tsalary" id="update-input-tsalary" min="0" >
+            <input type="submit" value="Update">
+            </fieldset>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript functions to show/hide the forms and set player_id
+        function newPlayer() {
+            document.getElementById('insert').style.display = 'block';
+            hideUpdateForm(); // Hide the update form if it's visible
+        }
+
+        function showUpdateForm(player) {
+            document.getElementById('update-player-id').value = player; // Set the player ID
+
+            // Get the player's information
+            var playerRow = document.querySelector('tr[data-value="' + player + '"]');
+            var cells = playerRow.getElementsByTagName('td');
+
+            // Set the values in the update form
+            document.getElementById('update-input-fname').value = cells[2].textContent;
+            document.getElementById('update-input-lname').value = cells[3].textContent;
+            document.getElementById('update-input-age').value = cells[4].textContent;
+            document.getElementById('update-input-teamid').value = cells[1].textContent;
+            document.getElementById('update-input-clength').value = cells[5].textContent;
+            document.getElementById('update-input-asalary').value = cells[6].textContent;
+            document.getElementById('update-input-tsalary').value = cells[7].textContent;
+
+            document.getElementById('update').style.display = 'block';
+            document.getElementById('insert').style.display = 'none'; // Hide the insert form
+        }
+
+        function hideUpdateForm() {
+            document.getElementById('update').style.display = 'none';
+        }
+    </script>
+</body>
